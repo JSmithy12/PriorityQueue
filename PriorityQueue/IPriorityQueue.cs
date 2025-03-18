@@ -2,8 +2,8 @@
 
 public interface IPriorityQueue<T> where T : IComparable<T>
 {
-	void Queue(T, item);
-	T UnQueue();
+	void Add(T, item);
+	void Remove();
 	T Peek();
 	bool isEmpty();
 }

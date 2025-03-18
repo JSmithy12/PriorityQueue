@@ -1,42 +1,65 @@
-﻿using System;
+﻿using PriorityQueue;
 
-public class SortedLinkedPriorityQueue<T> : IPriorityQueue<T> where T : IComparable<T>
+public class SortedLinkedPriorityQueue<T> : PriorityQueue<T>
 {
-    private Node<T> head;
-
-    public void Queue(T item)
+    private class Node
     {
-        Node < T > = newNode = new Node<T>(item);
-        if (head == null || head.Data.CompareTo(item) < 0)
+        public T Data;
+        public int Priority;
+        public Node Next;
+        public Node(T data, int priority)
+        {
+            Data = data;
+            Priority = priority;
+            Next = null;
+        }
+    }
+
+    private Node head;
+
+    public void Add(T item, int priority)
+    {
+        Node newNode = new Node(item, priority);
+        if (head == null || head.Priority < priority)
         {
             newNode.Next = head;
             head = newNode;
         }
         else
         {
-            Node<T> current = head;
-            while (current.Next != null && current.Next.Data.CompareTo(item) >= 0)
+            Node current = head;
+            while (current.Next != null && current.Next.Priority >= priority)
                 current = current.Next;
             newNode.Next = current.Next;
             current.Next = newNode;
         }
     }
 
-    public T Unqueue()
+    public T Head()
     {
         if (head == null)
-            throw new InvalidOperationException("Queue is empty");
-        T max = head.Data;
-        head = head.Next;
-        return max;
-    }
-
-    public T Peek()
-    {
-        if (head == null)
-            throw new InvalidOperationException("Queue is empty");
+            throw new QueueUnderflowException();
         return head.Data;
     }
 
+    public void Remove()
+    {
+        if (head == null)
+            throw new QueueUnderflowException();
+        head = head.Next;
+    }
+
     public bool IsEmpty() => head == null;
+
+    public override string ToString()
+    {
+        var result = "";
+        Node current = head;
+        while (current != null)
+        {
+            result += $"{current.Data}({current.Priority}) -> ";
+            current = current.Next;
+        }
+        return result + "null";
+    }
 }

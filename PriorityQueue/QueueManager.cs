@@ -27,12 +27,56 @@ namespace PriorityQueue
             {
                 InitSortedArrayQueue();
             }
+
+            switch (CB_Implementation.SelectedIndex)
+            {
+                case 0:
+                    InitSortedArrayQueue();
+                    break;
+                case 1:
+                    InitUnsortedArrayQueue();
+                    break;
+                case 2:
+                    InitSortedLinkedQueue();
+                    break;
+                case 3:
+                    InitUnsortedLinkedQueue();
+                    break;
+                case 4:
+                    InitHeapQueue();
+                    break;
+            }
+
         }
         
         private void InitSortedArrayQueue()
         {
             queue = new SortedArrayPriorityQueue<Person>(8);
             Lbl_Output.Text = "New sorted array priority queue created";
+        }
+
+        private void InitUnsortedArrayQueue()
+        {
+            queue = new UnsortedArrayPriorityQueue<Person>(8);
+            Lbl_Output.Text = "New unsorted array priority queue created";
+        }
+
+        private void InitSortedLinkedQueue()
+        {
+            queue = new SortedLinkedPriorityQueue<Person>();
+            Lbl_Output.Text = "New sorted linked list priority queue created";
+        }
+
+        private void InitUnsortedLinkedQueue()
+        {
+            queue = new UnsortedLinkedPriorityQueue<Person>();
+            Lbl_Output.Text = "New unsorted linked list priority queue created";
+        }
+
+        private void InitHeapQueue()
+        {
+            queue = new HeapPriorityQueue<Person>(8);
+            Lbl_Output.Text = "New heap-based priority queue created";
         }
 
         private void Btn_AddQueue_Click(object sender, System.EventArgs e)

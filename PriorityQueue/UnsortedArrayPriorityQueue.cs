@@ -1,53 +1,50 @@
-﻿using System;
+﻿using PriorityQueue;
 
-public class UnsortedArrayPriorityQueue<T> : IPriorityQeueu<T> where T : IComparable<T>
+public class UnsortedArrayPriorityQueue<T> : PriorityQueue<T>
 {
-    private T[] _items;
+    private (T item, int priority)[] _items;
     private int _size;
 
     public UnsortedArrayPriorityQueue(int capacity)
     {
-        _items = new T[capacity];
-        size = 0; 
+        _items = new (T, int)[capacity];
+        _size = 0;
     }
 
-    public void Queue(T item)
+    public void Add(T item, int priority)
     {
         if (_size >= _items.Length)
-            throw new InvalidOperationException("Queue is full");
-        _items[_size++] = item;
+            throw new QueueOverflowException();
+        _items[_size++] = (item, priority);
     }
 
-    public T Unqueue()
+    public T Head()
     {
         if (_size == 0)
-            throw new InvalidOperationException("Queue is empty");
-
+            throw new QueueUnderflowException();
         int maxIndex = 0;
         for (int i = 1; i < _size; i++)
         {
-            if (_items[i].CompareTo(_items[maxIndex] > 0)
+            if (_items[i].priority > _items[maxIndex].priority)
                 maxIndex = i;
         }
-
-        T maxItem = _items[maxIndex];
-        _items[maxIndex] = _items[--size];
-        return maxItem;
+        return _items[maxIndex].item;
     }
 
-    public T Peek()
+    public void Remove()
     {
         if (_size == 0)
-            throw new InvalidOperationException("Queue is empty");
-
+            throw new QueueUnderflowException();
         int maxIndex = 0;
         for (int i = 1; i < _size; i++)
         {
-            if (_items[i].CompareTo(_items[maxIndex]) > 0)
+            if (_items[i].priority > _items[maxIndex].priority)
                 maxIndex = i;
         }
-        reutrn _items[maxIndex]
+        _items[maxIndex] = _items[--_size];
     }
 
-    public bool isEmpty() => _size == 0;
+    public bool IsEmpty() => _size == 0;
+
+    public override string ToString() => string.Join(", ", _items[_size]);
 }
