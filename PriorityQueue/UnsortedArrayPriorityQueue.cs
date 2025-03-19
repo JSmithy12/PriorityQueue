@@ -14,14 +14,15 @@ public class UnsortedArrayPriorityQueue<T> : PriorityQueue<T>
     public void Add(T item, int priority)
     {
         if (_size >= _items.Length)
-            throw new QueueOverflowException();
+            throw new QueueOverflowException();  // Prevent overflow
         _items[_size++] = (item, priority);
     }
 
     public T Head()
     {
         if (_size == 0)
-            throw new QueueUnderflowException();
+            throw new QueueUnderflowException();  // Prevent access to empty queue
+
         int maxIndex = 0;
         for (int i = 1; i < _size; i++)
         {
@@ -35,16 +36,16 @@ public class UnsortedArrayPriorityQueue<T> : PriorityQueue<T>
     {
         if (_size == 0)
             throw new QueueUnderflowException();
+
         int maxIndex = 0;
         for (int i = 1; i < _size; i++)
         {
             if (_items[i].priority > _items[maxIndex].priority)
                 maxIndex = i;
         }
-        _items[maxIndex] = _items[--_size];
+        _items[maxIndex] = _items[--_size];  // Replace max priority item with last item
     }
 
     public bool IsEmpty() => _size == 0;
-
     public override string ToString() => string.Join(", ", _items[_size]);
 }

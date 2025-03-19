@@ -15,7 +15,7 @@ public class SortedLinkedPriorityQueue<T> : PriorityQueue<T>
         }
     }
 
-    private Node head;
+    private Node head;  // Maintains sorted order (highest priority first)
 
     public void Add(T item, int priority)
     {
@@ -50,7 +50,6 @@ public class SortedLinkedPriorityQueue<T> : PriorityQueue<T>
     }
 
     public bool IsEmpty() => head == null;
-
     public override string ToString()
     {
         var result = "";

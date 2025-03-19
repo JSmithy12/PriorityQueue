@@ -1,6 +1,6 @@
 ﻿using PriorityQueue;
 
-class HeapPriorityQueue<T> : PriorityQueue<T>
+public class HeapPriorityQueue<T> : PriorityQueue<T>
 {
     private (T item, int priority)[] heap;
     private int size;

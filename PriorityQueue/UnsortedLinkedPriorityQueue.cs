@@ -15,7 +15,7 @@ public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
         }
     }
 
-    private Node head;
+    private Node head;  // No sorting; highest priority searched on demand
 
     public void Add(T item, int priority)
     {
@@ -28,6 +28,7 @@ public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
     {
         if (head == null)
             throw new QueueUnderflowException();
+
         Node maxNode = head;
         Node current = head.Next;
         while (current != null)
@@ -43,10 +44,12 @@ public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
     {
         if (head == null)
             throw new QueueUnderflowException();
+
         Node maxNode = head;
         Node maxPrev = null;
         Node current = head;
         Node prev = null;
+
         while (current != null)
         {
             if (current.Priority > maxNode.Priority)
